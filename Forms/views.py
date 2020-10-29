@@ -13,6 +13,7 @@ import json
 import asyncio
 import time
 from threading import Thread
+from validate_email import validate_email
 
 
 # Create your views here.
@@ -28,7 +29,7 @@ class FormsDetailView(TemplateView):
         context['RECAPTCHA_SITE_KEY'] = settings.RECAPTCHA_SITE_KEY
         return context
 
-    async def post(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         # messages.success(self.request, 'Form is done')
         
         ''' Begin reCAPTCHA validation '''
@@ -44,16 +45,32 @@ class FormsDetailView(TemplateView):
             redirect_url = reverse_lazy('forms:forms_detail',kwargs={'pk':self.get_context_data(*args, **kwargs)['pk']})
             return redirect(redirect_url)
         ''' End reCAPTCHA validation '''
-        
-
 
         form = Forms.objects.filter(id=self.get_context_data(*args, **kwargs)['pk']).first()
+        fields = Fields.objects.filter(form=form).values_list('label','validation')
+
         global field_value_list
         field_value_list = []
+                    
         for field in self.request.POST:
             if field == 'csrfmiddlewaretoken' or field == 'g-recaptcha-response' :
                 continue
             else :
+                for element in fields:
+                    if element[0] == field:
+                        if element[1] == '1':
+                            print(element)
+                            print(self.request.POST[field])
+                            is_valid = validate_email(email_address=self.request.POST[field], check_regex=True, check_mx=True, from_address='my@from.addr.ess',
+                            helo_host='localhost', smtp_timeout=10, dns_timeout=10, use_blacklist=True, debug=False)
+                            if is_valid:
+                                print('saasasaasa')
+                                continue
+                            else:
+                                messages.error(self.request, 'Invalid Email')
+                                redirect_url = reverse_lazy('forms:forms_detail',kwargs={'pk':self.get_context_data(*args, **kwargs)['pk']})
+                                return redirect(redirect_url)
+
                 main_field = Fields.objects.filter(label=field).first()
                 value = Value(field=main_field,value=self.request.POST[field])
                 response = Response(form=form, field=main_field, value=self.request.POST[field])
@@ -75,13 +92,13 @@ class FormsDetailView(TemplateView):
 
 # @sync_to_async
 def send_emails(values,id):  #async
-    print('asassasddddddddd')
+    # print('asassasddddddddd')
     template_name = 'send_forms_information.html'
     time.sleep(5)
     context = {
         'values': values,
     }
-    print(context)
+    # print(context)
     msg = render_to_string(template_name,context)
     subject = 'New Form'
     emails = Emails.objects.filter(form__id=id)
