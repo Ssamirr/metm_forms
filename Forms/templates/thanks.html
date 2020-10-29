@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Təşəkkürlər{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/thanks.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+    <div class="col-md-12 main">
+        <img id="success" src="{% static 'img/done.png' %}" alt="Success">
+        <br>
+        <h3>Sorğuda iştirak etdiyiniz üçün təşəkkürlər!</h3>
+    </div>
+</div>
+
+{% endblock %}

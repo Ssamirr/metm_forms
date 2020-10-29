@@ -1,0 +1,92 @@
+.bg-form{
+    background: #3c6691;
+    width: 100%;
+    height: 100%;
+    padding: 30px 10px;
+}
+.header-form{
+    background: #f3f3f3;
+    padding: 30px 25px;
+    border-bottom: 1px solid #DDDDDD;
+    width: 100%;
+}
+
+.register{
+    color: #3D3D3D;
+    margin: 0;
+    padding: 0;
+    font-size: 2em;
+}
+
+.importance{
+    color: #3D3D3D;
+    font-size: 14px;
+    font-weight: normal;
+    margin: 0;
+    padding: 0;
+}
+
+.fields-form{
+    padding: 10px 25px;
+    background: #ffffff;
+    width: 100%;
+}
+
+.col-form-label{
+    font-size: 13px;
+    color: #474747;
+}
+
+.form-control{
+    height: 32px !important;
+    border-radius: 3px !important;
+    border-color: #e5e5e5 !important;
+}
+
+.form-control:hover{
+    border: 1px solid rgba(157, 157, 157, 0.75) !important;
+}
+
+.important{
+    color: #ff0000 !important;
+    font-weight: normal;
+    margin-left: 0px;
+    padding: 0;
+}
+
+#send{
+    color: #fff;
+    border: 1px solid #18B4C2;
+    background: #18B4C2;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    font: 16px 'Open Sans',"Lucida Grande","Lucida Sans Unicode",Arial,Arimo,Helvetica,sans-serif;
+    font-weight: normal;
+    font-weight: 400;
+    padding: 8px 21px !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#send:hover{
+    background: #118FA6;
+    border: 1px solid #118FA6;
+}
+
+.select-option{
+    width: 100%;
+    background: white;
+    height: 32px;
+    border-radius: 3px !important;
+    border: 1px solid #e5e5e5 !important;
+}
+
+@media (min-width: 856px){
+    .header-form{
+        width: 800px;
+    }
+    .fields-form{
+        width: 800px;
+    }
+}

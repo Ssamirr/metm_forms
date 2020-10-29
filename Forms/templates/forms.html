@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Forms {% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/forms.css' %}">
+{% endblock %}
+{% block content %}
+
+<section class="Forms">
+    <div class="bg-form">
+        <div class="d-flex justify-content-center flex-column align-items-center">
+            <div class="header-form">
+                <div class="register">Təlim iştirakçısının qeydiyyatı</div>
+                <div class="importance">*işarəsi qoyulan bölmələrin doldurulması məcburidir.</div>
+            </div>
+
+            <div class="fields-form">
+                <form action="" class="form" method="POST">
+                    {% csrf_token %}
+
+                    {% for field in forms.fields.all %}
+                    {% if field.is_published %}
+                    <div class="form-group row">
+                        <label for="inputPassword" class="col-sm-4 col-form-label">
+                            <span style="letter-spacing: 0.3px"> {{field.label}} </span>
+                            {% if field.requirement %}
+                            <span style="font-size: 14px" class="important">*</span>
+                            {% endif %}
+                        </label>
+
+                        <div class="col-sm-8">
+
+                            {% if field.field_type == '1' %}
+                            
+                            {% if field.requirement %}
+                                <span class="field-requirement">
+                            {% else %}
+                                <span>
+                            {% endif %}
+
+                            {% if field.validation == '1' %}
+                            <span class="validation-email">
+                            {% elif field.validation == '2' %}
+                                <span class="validation-text">
+                            {% elif field.validation == '3' %}
+                                <span class="validation-integer">
+                            {% endif %}
+                                <textarea  style="padding: 0px 12px;font-size: 14px;" name="{{field.label}}" class="w-100 input-form" id="" cols="30" rows="3">{% if field.default_value %} {{field.default_value}} {% endif %}</textarea>
+                                    </span>
+                                </span>
+
+                            {% elif field.field_type == '2' %}
+                            
+                            {% if field.requirement %}
+                                <span class="field-requirement">
+                            {% else %}
+                                <span>
+                            {% endif %}
+
+                            {% if field.validation == '1' %}
+                                <span class="validation-email">
+                            {% elif field.validation == '2' %}
+                                <span class="validation-text">
+                            {% elif field.validation == '3' %}
+                                <span class="validation-integer">
+                            {% endif %}
+                                <input {% if field.default_value %} value="{{field.default_value}}" {% else %} value='' {% endif %} type="number" name="{{field.label}}" class="form-control input-form">
+                                    </span>
+                                </span>
+
+                            {% elif field.field_type == '3' %}
+                            
+                            {% if field.requirement %}
+                                <span class="field-requirement">
+                            {% else %}
+                                <span>
+                            {% endif %}
+
+                            {% if field.validation == '1' %}
+                                <span class="validation-email">
+                            {% elif field.validation == '2' %}
+                                <span class="validation-text">
+                            {% elif field.validation == '3' %}
+                                <span class="validation-integer">
+                            {% endif %}
+                                <input {% if field.default_value %} value="{{field.default_value}}" {% else %} value='' {% endif %} type="date" name="{{field.label}}" class="form-control input-form">
+                                    </span>
+                                </span>
+
+                            {% elif field.field_type == '4' %}
+                            
+                            {% if field.requirement %}
+                                <span class="field-requirement">
+                            {% else %}
+                                <span>
+                            {% endif %}
+                                                            
+                            {% if field.validation == '1' %}
+                                <span class="validation-email">
+                            {% elif field.validation == '2' %}
+                                <span class="validation-text">
+                            {% elif field.validation == '3' %}
+                                <span class="validation-integer">
+                            {% endif %}
+                                <input {% if field.default_value %} value="{{field.default_value}}" {% else %} value='' {% endif %} type="date" name="{{field.label}}" class="form-control input-form">
+                                    </span>
+                                </span>
+
+                            {% elif field.field_type == '5' %}
+                            
+                            {% if field.requirement %}
+                                <span class="field-requirement">
+                            {% else %}
+                                <span>
+                            {% endif %}
+
+                            {% if field.validation == '1' %}
+                                <span class="validation-email">
+                            {% elif field.validation == '2' %}
+                                <span class="validation-text">
+                            {% elif field.validation == '3' %}
+                                <span class="validation-integer">
+                            {% endif %}
+                                <input {% if field.default_value %} value="{{field.default_value}}" {% else %} value='' {% endif %} type="text" name="{{field.label}}" class="form-control input-form">
+                                    </span>
+                                </span>
+
+                            {% elif field.field_type == '6' %}
+                            
+                            {% if field.requirement %}
+                                <span class="field-requirement">
+                            {% else %}
+                                <span>
+                            {% endif %}
+
+                            {% if field.validation == '1' %}
+                                <span class="validation-email">
+                            {% elif field.validation == '2' %}
+                                <span class="validation-text">
+                            {% elif field.validation == '3' %}
+                                <span class="validation-integer">
+                            {% endif %}
+                                <select class="select-option" name="{{field.label}}" id="">
+                                    {% for item in field.field_name_select.all %}
+                                    <option class='input-form select-options' value={{item.option}}> {{item.option}} </option>
+                                    {% endfor %}
+                                </select>
+                                    </span>
+                                </span>
+                        
+                        {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+
+                    <div class="g-recaptcha" data-sitekey="{{RECAPTCHA_SITE_KEY}}"></div>
+
+                    <div class="d-flex justify-content-center" style="padding: 25px 10px">
+                        <input id="send" type="submit" value="Göndər" class="submit px-3">
+                    </div>
+                </form>
+
+
+
+                <!-- <button type="submit" class="btn btn-primary">Post</button> -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src='https://www.google.com/recaptcha/api.js'></script>
+{% block js %}
+<script src="{% static 'js/forms.js' %}"></script>
+{% endblock %}
+
+{% endblock %}

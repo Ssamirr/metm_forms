@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+    <section class="Forms">
+    <div style="background: #3c6691;width: 85%;height: 100%;padding: 30px 10px;">
+        <div class="d-flex justify-content-center flex-column align-items-center">
+            <div style="background: #f3f3f3;padding: 30px 0px;border-bottom: 1px solid #DDDDDD;width: 100%;text-align:center">
+                <div style="    color: #3D3D3D;margin: 0;padding: 0;font-size: 2em;">Təlimdə iştirak edəcək iştirakçının qeydiyyat forması</div>
+            </div>
+
+            <div style="padding: 10px 0px;background: #ffffff;width: 100%;">
+                <div style="text-align: center">
+                    <div style="text-align: center">
+                        <h1>New Form</h1>
+                    </div>
+                    <div>
+                    {% for value in values %}
+                        {% for key,value in value.items %}
+                        <span>{{key}}</span> - <span>{{value}}<span> <br>
+                        {% endfor %}
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+ {% endblock %}
